@@ -1,25 +1,28 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import TaskItem from "./components/TaskItem";
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const [tasks, setTasks] = useState([
+    {
+      id: "1",
+      description: "	Estudar React ",
+      isCompleted: false,
+    },
+    {
+      id: "2",
+      description: "Jogar free fire ",
+      isCompleted: true,
+    },
+  ]);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-
-        <p className="read-the-docs"><strong>HELLO WORLD</strong></p>
-      </div>
+      {tasks.map((task) => (
+        <TaskItem key={task.id} task={task} />
+      ))}
     </>
   );
-}
+};
 
 export default App;
