@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TaskItem from "./components/TaskItem";
 import "./App.css";
 
+import axios from "axios";
+
 const App = () => {
-  const initialTasks = [
+  const [tasks, setTasks] = useState([
     {
       id: "1",
       description: "Estudar React",
@@ -14,28 +16,28 @@ const App = () => {
       description: "Jogar free fire",
       isCompleted: true,
     },
-  ];
+  ]);
+  const fetchTasks = async () => {
+    try {
+      const {data} = await axios.get("https://fsc-task-manager-backend.herokuapp.com/tasks");
 
-  const [tasks, setTasks] = useState(initialTasks);
-  const [isPreviousState, setIsPreviousState] = useState(false);
-
-  const handleToggleTasks = () => {
-    if (isPreviousState) {
-      setTasks(initialTasks);
-    } else {
-      setTasks([ ]);
+      setTasks(data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
-    setIsPreviousState(!isPreviousState);
   };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
 
   return (
     <>
       {tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
-      <button onClick={handleToggleTasks}>
-        {isPreviousState ? "Mostrar Tarefas" : "Remover Tarefas"}
-      </button>
     </>
   );
 };
