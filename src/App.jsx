@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TaskItem from "./components/TaskItem";
-import "./App.css";
+ 
 
 import axios from "axios";
 
@@ -22,7 +22,7 @@ const App = () => {
       const {data} = await axios.get("https://fsc-task-manager-backend.herokuapp.com/tasks");
 
       setTasks(data);
-      console.log(response);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
